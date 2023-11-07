@@ -4,19 +4,9 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var rotate = function (nums, k) {
-  for (let i = nums.length - 1; i >= 0; i--) {
-    nums[i + k] = nums[i];
+  if (nums.length < k) {
+    k = k % nums.length;
   }
-
-  for (let j = k - 1; j >= 0; j--) {
-    nums[j] = nums.pop();
-  }
+  let shapatar = nums.splice(0, nums.length - k);
+  return nums.push(...shapatar);
 };
-
-// var rotate = function (nums, k) {
-//   for (let i = 0; i < k; i++) {
-//     nums.unshift(nums.pop());
-//   }
-
-//   return nums;
-// };
