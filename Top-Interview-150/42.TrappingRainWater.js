@@ -3,19 +3,35 @@
  * @return {number}
  */
 var trap = function (height) {
-  let water = 0;
-  let n = height;
-
-  if (height[0] < 1) {
-    height.splice(0, 1);
-    return;
-  }
+  let maxIndex = 0;
+  let total = 0;
+  let min = height[0];
 
   for (let i = 0; i < height.length; i++) {
-    if (height[i] > height[i - 1]) {
-      water++;
+    if (height[i] > total) {
+      total = height[i];
+      maxIndex = i;
     }
   }
 
-  return water;
+  total = 0;
+
+  for (let i = 1; i <= maxIndex; i++) {
+    if (height[i] >= min) {
+      min = height[i];
+    }
+    if (height[i] < min) {
+      total += min - height[i];
+    }
+  }
+  min = height[height.length - 1];
+  for (let i = height.length - 2; i >= maxIndex; i--) {
+    if (height[i] >= min) {
+      min = height[i];
+    }
+    if (height[i] < min) {
+      total += min - height[i];
+    }
+  }
+  return total;
 };
